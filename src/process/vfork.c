@@ -7,10 +7,10 @@
 pid_t __vfork(void)
 {
 	/* vfork syscall cannot be made from C code */
-#ifdef SYS_fork
-	return syscall(SYS_fork);
+#ifdef SYS_vfork
+	return syscall(SYS_vfork);
 #else
-	return syscall(SYS_clone, SIGCHLD, 0);
+	return syscall(SYS_clone, CLONE_VFORK|CLONE_VM|SIGCHLD, 0);
 #endif
 }
 
